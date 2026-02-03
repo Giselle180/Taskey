@@ -13,7 +13,7 @@ class Kernel
     public function handle(Request $request): Response
     {
         // Print message taken from method on request
-        $message = "Thank you for your request". $request->method;
+        $message = "Thank you for your request" . $request->path;
         $response = new Response($message);
         return $response;
     }

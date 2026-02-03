@@ -15,7 +15,7 @@ $kernel = new Kernel();
 
 // Extracts path from the uri
 // Specific code input
-$urlPath = parse_url($_SERVER['REQUEST_URI']);
+$urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (!is_string($urlPath)) {
     $urlPath = "/";
 }
