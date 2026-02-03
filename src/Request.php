@@ -8,6 +8,7 @@ class Request
 
     public string $path;
 
+    // Always have to assign what kind of array it is
     /** @var string[] */
     public array $queryParameters;
 
@@ -23,7 +24,7 @@ class Request
      */
     public function __construct(string $method, string $path, array $queryParameters, array $postParameters)
     {
-    $this->methond = $method;
+    $this->method = $method;
     $this->path = $path;
     $this->queryParameters = $queryParameters;
     $this->postParameters = $postParameters;

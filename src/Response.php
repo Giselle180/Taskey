@@ -19,6 +19,7 @@ class Response
 
     public function echo(): void
     {
+        // Specific code input
         http_response_code($this->responseCode);
         if ($this->header) {
             header($this->header);
