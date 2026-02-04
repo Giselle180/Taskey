@@ -12,8 +12,9 @@ use Framework\Request;
 // Create kernel
 $kernel = new Kernel();
 
-// Define some routes
+// Gets the router
 $router = $kernel->getRouter();
+// Define some routes
 $router->addRoute("GET", "/", "Welcome to Taskey");
 $router->addRoute("GET", "/about", "Taskey is Awesome");
 $router->addRoute("GET", "/admin", "All you base belongs to us");

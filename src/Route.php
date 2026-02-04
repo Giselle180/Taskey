@@ -19,6 +19,7 @@ class Route
 
     public function matches(string $method, string $path): bool
     {
+        // Verifies if the method and path are the same
         return $this->method === $method && $this->path === $path;
     }
 }

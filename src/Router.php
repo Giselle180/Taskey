@@ -13,6 +13,7 @@ class Router
 
     public function dispatch(Request $request): Response
     {
+        // Compares the routes to see if they match
         $matchedRoute = null;
         foreach ($this->routes as $route) {
             if ($route->matches($request->method, $request->path)) {
@@ -20,10 +21,12 @@ class Router
                 break;
             }
         }
+        // If it doesn't match anything then returns error
         if ($matchedRoute === null) {
             // Route not found, return 404
             return new Response("Page not found", 404);
         }
+        // If it's all correct then it returns it
         $response = new Response($matchedRoute->return);
         return $response;
     }

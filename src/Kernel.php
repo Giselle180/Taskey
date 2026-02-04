@@ -8,13 +8,14 @@ class Kernel
 
     public function __construct()
     {
+        // Crates router
         $this->router = new Router();
     }
 
 
-    // You don't have to import bc they're in the same name space
     public function handle(Request $request): Response
     {
+        // Router will be dispatched
         return $this->router->dispatch($request);
     }
 
