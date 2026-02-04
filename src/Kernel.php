@@ -4,17 +4,22 @@ namespace Framework;
 
 class Kernel
 {
+    private Router $router;
+
     public function __construct()
     {
-        // nothing yet
+        $this->router = new Router();
     }
+
 
     // You don't have to import bc they're in the same name space
     public function handle(Request $request): Response
     {
-        // Print message taken from method on request
-        $message = "Thank you for your request" . $request->path;
-        $response = new Response($message);
-        return $response;
+        return $this->router->dispatch($request);
+    }
+
+    public function getRouter(): Router
+    {
+        return $this->router;
     }
 }

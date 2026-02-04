@@ -8,10 +8,15 @@ require __DIR__ . '/../vendor/autoload.php';
 // Import
 use Framework\Kernel;
 use Framework\Request;
-use Framework\Respose;
 
 // Create kernel
 $kernel = new Kernel();
+
+// Define some routes
+$router = $kernel->getRouter();
+$router->addRoute("GET", "/", "Welcome to Taskey");
+$router->addRoute("GET", "/about", "Taskey is Awesome");
+$router->addRoute("GET", "/admin", "All you base belongs to us");
 
 // Extracts path from the uri
 // Specific code input
