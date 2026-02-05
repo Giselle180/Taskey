@@ -6,6 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // phpinfo();
 
 // Import
+use App\views\RouteProvider;
 use Framework\Kernel;
 use Framework\Request;
 
@@ -13,11 +14,8 @@ use Framework\Request;
 $kernel = new Kernel();
 
 // Gets the router
-$router = $kernel->getRouter();
-// Define some routes
-$router->addRoute("GET", "/", "Welcome to Taskey");
-$router->addRoute("GET", "/about", "Taskey is Awesome");
-$router->addRoute("GET", "/admin", "All you base belongs to us");
+$routeProvider = new RouteProvider();
+$kernel->registerRoutes($routeProvider);
 
 // Extracts path from the uri
 // Specific code input
