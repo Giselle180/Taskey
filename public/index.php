@@ -1,5 +1,6 @@
 <?php
 
+// To start the page
 require __DIR__ . '/../vendor/autoload.php';
 
 // Debug info
@@ -7,6 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Import
 use App\views\RouteProvider;
+use App\views\ServiceProvider;
 use Framework\Kernel;
 use Framework\Request;
 
@@ -15,7 +17,11 @@ $kernel = new Kernel();
 
 // Gets the router
 $routeProvider = new RouteProvider();
+// Defines routes
 $kernel->registerRoutes($routeProvider);
+
+//Define services
+$kernel->registerServices(new ServiceProvider());
 
 // Extracts path from the uri
 // Specific code input
