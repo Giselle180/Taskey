@@ -15,13 +15,14 @@ use Framework\Request;
 // Create kernel
 $kernel = new Kernel();
 
+//Define services
+$kernel->registerServices(new ServiceProvider());
+
 // Gets the router
 $routeProvider = new RouteProvider();
 // Defines routes
 $kernel->registerRoutes($routeProvider);
 
-//Define services
-$kernel->registerServices(new ServiceProvider());
 
 // Extracts path from the uri
 // Specific code input

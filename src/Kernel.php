@@ -11,8 +11,13 @@ class Kernel
     public function __construct()
     {
         // Crates router
-        $this->router = new Router();
         $this->container = new ServiceContainer();
+
+        // Added it here so it's accessible anywhere
+        $responseFactory = new ResponseFactory();
+        $this->container->set(ResponseFactory::class, $responseFactory);
+
+        $this->router = new Router($responseFactory);
     }
 
     public function handle(Request $request): Response

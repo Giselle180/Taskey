@@ -3,16 +3,26 @@
 namespace App\controllers;
 
 use Framework\Response;
+use Framework\ResponseFactory;
 
 class TaskController
 {
+    private ResponseFactory $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
+
     public function index(): Response
     {
-        return new Response("Listing all the tasks");
+        $response = $this->responseFactory->body("List all tasks");
+        return $response;
     }
 
     public function create(): Response
     {
-        return new Response("Create a new task");
+        $response = $this->responseFactory->body("Create new task");
+        return $response;
     }
 }
