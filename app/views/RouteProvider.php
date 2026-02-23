@@ -22,6 +22,8 @@ class RouteProvider implements RouteProviderInterface
         // Define some routes from task control
         $taskController = $container->get(TaskController::class);
         $router->addRoute("GET", "/tasks", [$taskController, "index"]);
+        // or (\d+) for regex digit
+        $router->addRoute("GET", '/tasks/(?<id>[0-9]+)', [$taskController, "show"]);
         $router->addRoute("GET", "/tasks/create", [$taskController, "create"]);
     }
 }

@@ -12,17 +12,21 @@ use App\views\ServiceProvider;
 use Framework\Kernel;
 use Framework\Request;
 
+$config = [
+    'APP_ENV' => 'development',
+    'VIEWS_PATH' => 'app/views',
+];
+
 // Create kernel
-$kernel = new Kernel();
+$kernel = new Kernel($config);
 
 //Define services
 $kernel->registerServices(new ServiceProvider());
 
-// Gets the router
-$routeProvider = new RouteProvider();
 // Defines routes
-$kernel->registerRoutes($routeProvider);
+$kernel->registerRoutes(new RouteProvider());
 
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 // Extracts path from the uri
 // Specific code input
@@ -31,9 +35,15 @@ if (!is_string($urlPath)) {
     $urlPath = "/";
 }
 
+// Get query (GET) parameters
+$queryParams = $_GET;
+
+// Get POST data
+$postData = $_POST;
+
 // Create request
 // Specific code input
-$request = new Request($_SERVER['REQUEST_METHOD'], $urlPath, $_GET, $_POST);
+$request = new Request($method, $urlPath, $queryParams, $postData);
 
 // Passing the response to the kernel handler container
 $response = $kernel->handle($request);

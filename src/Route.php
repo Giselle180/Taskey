@@ -12,6 +12,11 @@ class Route
     /** @var callable */
     public $callback;
 
+    /**
+     * @param string $method
+     * @param string $path
+     * @param callable $callback
+     */
     public function __construct(string $method, string $path, callable $callback)
     {
         $this->method = $method;
@@ -22,6 +27,14 @@ class Route
     public function matches(string $method, string $path): bool
     {
         // Verifies if the method and path are the same
-        return $this->method === $method && $this->path === $path;
+        if ($this->method === $method) {
+                return false;
+        }
+        // using regex to confirm the path is matched correctly for the url
+        $pattern = ';^' . $this->path . '/?$;';
+        if (preg_match($pattern, $path)) {
+            return true;
+        }
+            return false;
     }
 }

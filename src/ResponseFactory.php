@@ -2,18 +2,63 @@
 
 namespace Framework;
 
+use Twig\Extension\DebugExtension;
+
 class ResponseFactory
 {
+    private \Twig\Environment $twig;
+
+    public function __construct(string $viewPath, bool $debugMode)
+    {
+        $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/.../' . $viewPath);
+        $twig = new \Twig\Environment($loader, [
+            'debug' => $debugMode,
+        ]);
+
+        if ($debugMode) {
+            $twig->addExtension(new \Twig\Extension\DebugExtension());
+        }
+        $this->twig = $twig;
+    }
+
+    // Delete body
     public function body(string $text): Response
     {
         $response = new Response($text, 200);
         return $response;
     }
 
+    /**
+     * @param string $view
+     * @param array<mixed> $parameters
+     * @return Response
+     */
+    public function view(string $view, mixed $parameters): Response
+    {
+        $response = new Response();
+
+        try {
+            $response->responseCode = 200;
+            $response->body = $this->twig->render($view, $parameters);
+            return $response;
+        } catch (\Exception $exception) {
+            $response->responseCode = 500;
+            $response->body = $exception->getMessage();
+            return $response;
+        }
+    }
+
     public function notFound(): Response
     {
-        $newText = "Page not Found";
-        $response = new Response($newText, 404);
-        return $response;
+        $response = new Response();
+        try {
+            $response->responseCode = 404;
+            $response->body = $this->twig->render("404.html.twig");
+            return $response;
+        } catch (\Exception $exception) {
+            $response->responseCode = 500;
+            $response->body = $exception->getMessage();
+            return $response;
+        }
     }
 }

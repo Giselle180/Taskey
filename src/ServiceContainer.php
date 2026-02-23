@@ -20,6 +20,9 @@ class ServiceContainer
      */
     public function set(string $id, object $instance): void
     {
+        if (!$instance instanceof  $id) {
+            throw new Exception("Instance must be of type [$id].");
+        }
         // Specific code input
         // Stop the function at that specific if
         if (isset($this->instances[$id])) {
