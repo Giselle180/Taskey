@@ -1,6 +1,6 @@
 <?php
 
-namespace App\views;
+namespace App;
 
 use App\controllers\HomeController;
 use App\controllers\TaskController;

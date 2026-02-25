@@ -10,7 +10,7 @@ class ResponseFactory
 
     public function __construct(string $viewPath, bool $debugMode)
     {
-        $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/.../' . $viewPath);
+        $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../' . $viewPath);
         $twig = new \Twig\Environment($loader, [
             'debug' => $debugMode,
         ]);
@@ -19,13 +19,6 @@ class ResponseFactory
             $twig->addExtension(new \Twig\Extension\DebugExtension());
         }
         $this->twig = $twig;
-    }
-
-    // Delete body
-    public function body(string $text): Response
-    {
-        $response = new Response($text, 200);
-        return $response;
     }
 
     /**

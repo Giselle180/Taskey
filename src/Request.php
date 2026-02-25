@@ -19,6 +19,9 @@ class Request
     /** @var array<string> */
     public array $postBody;
 
+    /** @var string[] */
+    public array $routeParameters;
+
     /**
      * @param string $method
      * @param string $path
@@ -35,6 +38,6 @@ class Request
 
     public function get(string $key): ?string
     {
-        return $this->queryParameters[$key] ?? null;
+        return $this->routeParameters[$key] ?? null;
     }
 }

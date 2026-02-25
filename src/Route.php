@@ -12,6 +12,9 @@ class Route
     /** @var callable */
     public $callback;
 
+    /** @var string[] */
+    public array $routeParameters;
+
     /**
      * @param string $method
      * @param string $path
@@ -27,12 +30,15 @@ class Route
     public function matches(string $method, string $path): bool
     {
         // Verifies if the method and path are the same
-        if ($this->method === $method) {
+        if ($this->method !== $method) {
                 return false;
         }
+
         // using regex to confirm the path is matched correctly for the url
+        // Specific code input
         $pattern = ';^' . $this->path . '/?$;';
-        if (preg_match($pattern, $path)) {
+        if (preg_match($pattern, $path, $matches)) {
+            $this->routeParameters = $matches;
             return true;
         }
             return false;

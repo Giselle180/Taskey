@@ -1,9 +1,10 @@
 <?php
 
-namespace App\views;
+namespace App;
 
 use App\controllers\HomeController;
 use App\controllers\TaskController;
+use App\Repositories\TaskRepository;
 use Framework\ResponseFactory;
 use Framework\ServiceContainer;
 use Framework\ServiceProviderInterface;
@@ -18,7 +19,8 @@ class ServiceProvider implements ServiceProviderInterface
         // Passing through an instance of and type
         $container->set(HomeController::class, $homeController);
 
-        $taskController = new TaskController($responseFactory);
+        $taskRepository = new TaskRepository();
+        $taskController = new TaskController($responseFactory, $taskRepository);
         $container->set(TaskController::class, $taskController);
     }
 }

@@ -7,8 +7,8 @@ require __DIR__ . '/../vendor/autoload.php';
 // phpinfo();
 
 // Import
-use App\views\RouteProvider;
-use App\views\ServiceProvider;
+use App\RouteProvider;
+use App\ServiceProvider;
 use Framework\Kernel;
 use Framework\Request;
 
