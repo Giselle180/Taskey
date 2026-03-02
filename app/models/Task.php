@@ -6,24 +6,28 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class Task
 {
-    public integer $id;
+    public int $id;
 
     public string $title;
 
     public string $description;
 
-    public integer $priority;
+    public int $priority;
 
-    public integer $status;
+    public int $status;
 
-    public integer $progress;
+    public int $progress;
 
-    public integer $createdAt;
+    public int $createdAt;
 
-    public integer $completedAt;
+    public ?int $completedAt;
 
     public function __construct()
     {
-        // Later
+        $this->priority = 0;
+        $this->status = 0;
+        $this->progress = 0;
+        $this->createdAt = time();
+        $this->completedAt = null;
     }
 }

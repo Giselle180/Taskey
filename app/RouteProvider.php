@@ -25,5 +25,6 @@ class RouteProvider implements RouteProviderInterface
         // or (\d+) for regex digit
         $router->addRoute("GET", '/tasks/(?<id>[0-9]+)', [$taskController, "show"]);
         $router->addRoute("GET", "/tasks/create", [$taskController, "create"]);
+        $router->addRoute("POST", "/tasks", [$taskController, "store"]);
     }
 }

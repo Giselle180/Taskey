@@ -54,4 +54,22 @@ class ResponseFactory
             return $response;
         }
     }
+
+    public function redirect(string $url): Response
+    {
+        $response = new Response();
+        $response->responseCode = 302;
+        $response->header = "Location:" . $url;
+        return $response;
+    }
+
+    public function internalError(): Response
+    {
+        $response = new Response();
+        $response->responseCode = 500;
+        //$response->body = $this->---;
+        // 'Please fill in all forms'
+
+        return $response;
+    }
 }

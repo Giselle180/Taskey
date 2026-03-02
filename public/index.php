@@ -15,6 +15,7 @@ use Framework\Request;
 $config = [
     'APP_ENV' => 'development',
     'VIEWS_PATH' => 'app/views',
+    'APP_DB' => 'tasky.sqlite'
 ];
 
 // Create kernel

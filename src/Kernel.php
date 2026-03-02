@@ -27,6 +27,10 @@ class Kernel
         $responseFactory = new ResponseFactory($viewPath, $debugMode);
         $this->container->set(ResponseFactory::class, $responseFactory);
 
+        $dbName = $this->configManager->get('APP_DB');
+        $database = new Database(__DIR__ . '/../' . $dbName);
+        $this->container->set(Database::class, $database);
+
         $this->router = new Router($responseFactory);
     }
 
@@ -50,5 +54,10 @@ class Kernel
     {
         // Router will be dispatched
         return $this->router->dispatch($request);
+    }
+
+    public function getDatabase(): Database
+    {
+        return $this->container->get(Database::class);
     }
 }
