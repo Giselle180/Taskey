@@ -66,10 +66,14 @@ class ResponseFactory
     public function internalError(): Response
     {
         $response = new Response();
-        $response->responseCode = 500;
-        //$response->body = $this->---;
-        // 'Please fill in all forms'
-
-        return $response;
+        try {
+            $response->responseCode = 500;
+            $response->body = $this->twig->render('500.html.twig');
+            return $response;
+        } catch (\Exception $e) {
+            $response->responseCode = 500;
+            $response->body = $e->getMessage();
+            return $response;
+        }
     }
 }

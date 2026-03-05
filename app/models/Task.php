@@ -22,6 +22,8 @@ class Task
 
     public ?int $completedAt;
 
+    public int $projectId;
+
     public function __construct()
     {
         $this->priority = 0;
@@ -29,5 +31,6 @@ class Task
         $this->progress = 0;
         $this->createdAt = time();
         $this->completedAt = null;
+        // project
     }
 }

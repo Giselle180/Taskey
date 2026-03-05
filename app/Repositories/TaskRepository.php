@@ -7,37 +7,6 @@ use Framework\Database;
 
 class TaskRepository implements TaskRepositoryInterface
 {
-    /** @var array<int, mixed> */
-    private array $tempTasks = array(
-        array(
-            "id" => 1,
-            "title" => "Form the Fellowship",
-            "description" => "Assemble representatives of the Free Peoples in Rivendell",
-            "priority" => 3,
-            "status" => 4,
-            "progress" => 100,
-            "created_at" => 1008710400,
-            "completed_at" => 1008720400),
-        array(
-            "id" => 2,
-            "title" => "Cross the Misty Mountains",
-            "description" => "Find a safe passage through or around the mountains",
-            "priority" => 2,
-            "status" => 1,
-            "progress" => 50,
-            "created_at" => 1008720400,
-            "completed_at" => null),
-        array(
-            "id" => 3,
-            "title" => "Enter Moria",
-            "description" => "Take the risky path through the Mines of Moria",
-            "priority" => 2,
-            "status" => 3,
-            "progress" => 0,
-            "created_at" => 1008740400,
-            "completed_at" => null)
-    );
-
     private Database $database;
 
     public function __construct(Database $database)
@@ -109,5 +78,37 @@ class TaskRepository implements TaskRepositoryInterface
         $task->id = $this->database->getLastID();
 
         return $task;
+    }
+
+    public function update(Task $task): bool
+    {
+        // SQLite codes
+        $stmt = $this->database->run("UPDATE tasks SET title = :title,
+            descripttion = :description,
+            priority = :priority,
+            status = :status,
+            progress = :progress,
+            created_at = :createdAt,
+            completed_at = :completedAt,
+            WHERE id = :id",
+                 [
+                 "title" => $task->title,
+                "description" => $task->description,
+                "priority" => $task->priority,
+                "status" => $task->status,
+                "progress" => $task->progress,
+                "created_at" => $task->createdAt,
+                "completed_at" => $task->completedAt,
+                 ]
+        );
+
+        return $stmt->rowCount() === 0;
+    }
+
+    public function delete(Task $task): bool
+    {
+        $stmt = $this->database->run("DELETE FROM tasks WHERE id = :id", ['id' => $task->id]);
+
+        return $stmt->rowCount() === 0;
     }
 }
