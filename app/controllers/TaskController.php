@@ -3,7 +3,6 @@
 namespace App\controllers;
 
 use App\models\Task;
-use App\Repositories\ProjectRepository;
 use App\Repositories\TaskRepository;
 use DateTime;
 use Framework\Request;
@@ -14,15 +13,13 @@ class TaskController
 {
     private ResponseFactory $responseFactory;
 
+    // Interface
     private TaskRepository $taskRepository;
 
-    private ProjectRepository $projectRepository;
-
-    public function __construct(ResponseFactory $responseFactory, TaskRepository $taskRepository, ProjectRepository $projectRepository)
+    public function __construct(ResponseFactory $responseFactory, TaskRepository $taskRepository)
     {
         $this->responseFactory = $responseFactory;
         $this->taskRepository = $taskRepository;
-        $this->projectRepository = $projectRepository;
     }
 
     public function index(): Response
@@ -116,8 +113,8 @@ class TaskController
 
     public function edit(Request $request): Response
     {
-        $taskId = (int)$request->get('id');
-        $task = $this->taskRepository->find($taskId);
+        $id = (int)$request->get('id');
+        $task = $this->taskRepository->find($id);
         return $this->responseFactory->view("tasks/edit.html.twig", [
             'task' => $task,
             ]);
@@ -160,8 +157,8 @@ class TaskController
 
     public function deleteConfirm(Request $request): Response
     {
-        $taskId = (int)$request->get('id');
-        $task = $this->taskRepository->find($taskId);
+        $id = (int)$request->get('id');
+        $task = $this->taskRepository->find($id);
         if (!$task) {
             return $this->responseFactory->notFound();
         }
@@ -172,8 +169,8 @@ class TaskController
 
     public function delete(Request $request): Response
     {
-        $taskId = (int)$request->get('id');
-        $task = $this->taskRepository->find($taskId);
+        $id = (int)$request->get('id');
+        $task = $this->taskRepository->find($id);
 
         if (!$task) {
             return $this->responseFactory->notFound();
