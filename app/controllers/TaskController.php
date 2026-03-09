@@ -14,8 +14,9 @@ class TaskController
 {
     private ResponseFactory $responseFactory;
 
-    // Interface
     private TaskRepository $taskRepository;
+
+    private ProjectRepository $projectRepository;
 
     public function __construct(ResponseFactory $responseFactory, TaskRepository $taskRepository, ProjectRepository $projectRepository)
     {

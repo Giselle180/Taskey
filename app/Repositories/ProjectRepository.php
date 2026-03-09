@@ -21,12 +21,12 @@ class ProjectRepository implements ProjectRepositoryInterface
         $stmt = $this->database->query("SELECT * FROM projects");
         $stmt->execute();
         $result = $stmt->fetchAll();
-        $tasks = array();
+        $project = array();
         foreach ($result as $row) {
-            $tasks[] = $this->fromDatabase($row);
+            $project[] = $this->fromDatabase($row);
         }
 
-        return $tasks;
+        return $project;
     }
 
     public function find(int $id): ?Project
@@ -42,13 +42,13 @@ class ProjectRepository implements ProjectRepositoryInterface
 
     public function fromDatabase(array $row): Project
     {
-        $task = new Project();
+        $project = new Project();
 
-        $task->id = $row['id'];
-        $task->title = $row['title'];
-        $task->description = $row['description'];
+        $project->id = $row['id'];
+        $project->title = $row['title'];
+        $project->description = $row['description'];
 
-        return $task;
+        return $project;
     }
 
     public function insert(Project $project): ?Project

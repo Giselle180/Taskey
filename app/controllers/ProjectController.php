@@ -12,9 +12,11 @@ use Framework\ResponseFactory;
 
 class ProjectController
 {
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
-    private $ProjectRepository;
+    private TaskRepository $taskRepository;
+
+    private ProjectRepository $projectRepository;
 
     public function __construct(ResponseFactory $responseFactory, TaskRepository $taskRepository, ProjectRepository $projectRepository)
     {
