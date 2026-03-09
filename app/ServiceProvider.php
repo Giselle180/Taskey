@@ -3,6 +3,7 @@
 namespace App;
 
 use App\controllers\HomeController;
+use App\Controllers\ProjectController;
 use App\controllers\TaskController;
 use App\Repositories\TaskRepository;
 use App\Repositories\TaskRepositoryInterface;
@@ -26,7 +27,10 @@ class ServiceProvider implements ServiceProviderInterface
         // Passing through an instance of and type
         $container->set(HomeController::class, $homeController);
 
-        $taskController = new TaskController($responseFactory, $taskRepository);
+        $taskController = new TaskController($responseFactory, $taskRepository, $projectRepository);
         $container->set(TaskController::class, $taskController);
+
+        $projectController = new ProjectController($responseFactory, $projectRepository, $taskRepository);
+        $container->set(ProjectController::class, $projectController);
     }
 }

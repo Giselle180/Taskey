@@ -111,4 +111,15 @@ class TaskRepository implements TaskRepositoryInterface
 
         return $stmt->rowCount() === 0;
     }
+
+    public function findProjectTasks(int $projectId): array
+    {
+        $stmt = $this->database->run("SELECT * FROM tasks WHERE project_id = :id", ["id" => $projectId])->fetchAll();
+        $tasks = [];
+        foreach ($stmt as $row) {
+            $task = $this->fromDbRow($row);
+            $tasks[] = $task;
+        }
+        return $tasks;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\controllers\HomeController;
+use App\Controllers\ProjectController;
 use App\controllers\TaskController;
 use Framework\RouteProviderInterface;
 use Framework\Router;
@@ -26,10 +27,19 @@ class RouteProvider implements RouteProviderInterface
         $router->addRoute("GET", '/tasks/(?<id>[0-9]+)', [$taskController, "show"]);
         $router->addRoute("GET", "/tasks/create", [$taskController, "create"]);
         $router->addRoute("POST", "/tasks", [$taskController, "store"]);
-
         $router->addRoute('GET', '/tasks/(?<id>\d+)/edit', [$taskController, 'edit']);
         $router->addRoute('POST', '/tasks/(?<id>\d+)/edit', [$taskController, 'update']);
         $router->addRoute('GET', '/tasks/(?<id>\d+)/delete', [$taskController, 'deleteConfirm']);
         $router->addRoute('POST', '/tasks/(?<id>\d+)/delete', [$taskController, 'delete']);
+
+        // Define some routes from project control
+        $projectController = $container->get(ProjectController::class);
+        $router->addRoute('GET', '/projects', [$projectController, 'index']);
+        $router->addRoute('GET', '/projects/create', [$projectController, 'create']);
+        $router->addRoute('POST', '/projects', [$projectController, 'store']);
+        $router->addRoute('GET', '/projects/(?<id>\d+)', [$projectController, 'show']);
+        $router->addRoute('GET', '/projects/(?<id>\d+)/edit', [$projectController, 'edit']);
+        $router->addRoute('POST', '/projects/(?<id>\d+)/edit', [$projectController, 'update']);
+        $router->addRoute('POST', '/projects/(?<id>\d+)/delete', [$projectController, 'delete']);
     }
 }
