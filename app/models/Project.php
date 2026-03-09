@@ -9,11 +9,4 @@ class Project
     public string $title;
 
     public string $description;
-
-    public function __construct()
-    {
-        // id
-        $this->title = "";
-        $this->description = "";
-    }
 }

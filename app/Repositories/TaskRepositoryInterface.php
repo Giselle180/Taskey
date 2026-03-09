@@ -16,4 +16,6 @@ interface TaskRepositoryInterface
     public function update(Task $task): bool;
 
     public function delete(Task $task): bool;
+
+    public function findProjectTasks(int $projectId): array;
 }

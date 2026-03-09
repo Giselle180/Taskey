@@ -84,7 +84,7 @@ class TaskRepository implements TaskRepositoryInterface
     {
         // SQLite codes
         $stmt = $this->database->run("UPDATE tasks SET title = :title,
-            descripttion = :description,
+            description = :description,
             priority = :priority,
             status = :status,
             progress = :progress,
@@ -110,5 +110,16 @@ class TaskRepository implements TaskRepositoryInterface
         $stmt = $this->database->run("DELETE FROM tasks WHERE id = :id", ['id' => $task->id]);
 
         return $stmt->rowCount() === 0;
+    }
+
+    public function findProjectTasks(int $projectId): array
+    {
+        $stmt = $this->database->run("SELECT * FROM tasks WHERE project_id = :id", ["id" => $projectId])->fetchAll();
+        $tasks = [];
+        foreach ($stmt as $row) {
+            $task = $this->fromDatabase($row);
+            $tasks[] = $task;
+        }
+        return $tasks;
     }
 }
